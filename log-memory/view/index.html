@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>view</title>
+    </head>
+    <body>
+        <div id="container" style="height: 600px"></div>
+        <div id="toolbar">
+            <button type="button" action="switchTimeDisplay">切换时间显示</button>
+        </div>
+        
+        <script src="../res/data.js"></script>
+        <script src="./highcharts.js"></script>
+        <script src="./jquery-2-1-1.js"></script>
+        <script>
+            var options = {
+                displayTime: true
+            };
+
+            function draw() {
+                var seriesMap = {};
+                Object.keys(jsonData).forEach(function(key) {
+                    var jsonItemData = jsonData[key];
+                    jsonItemData.value.forEach(function(item, itemIndex) {
+                        Object.keys(item).forEach(function(itemKey) {
+                            var dataKey = key + '_' + itemKey;
+                            var data = seriesMap[dataKey];
+                            if(!data) {
+                                data = {
+                                    name: dataKey,
+                                    data: [],
+                                    key: key,
+                                    itemKey: itemKey
+                                };
+                                seriesMap[dataKey] = data;
+                            }
+
+                            var point = [
+                                parseInt(jsonItemData.time[itemIndex]) * 1000,
+                                item[itemKey]
+                            ];
+                            if(!options.displayTime) {
+                                point = item[itemKey];
+                            }
+                            data.data.push(point);
+                        });
+                    });
+                });
+
+                var series = Object.keys(seriesMap).map(function(key) {
+                    return seriesMap[key];
+                });
+
+
+                var chart = Highcharts.chart('container', {
+                    chart: {
+                        type: 'spline',
+                    },
+                    title: {
+                        text: '内存占用'
+                    },
+                    plotOptions: {
+                        spline: {
+                            tooltip: {
+                                xDateFormat: '%Y-%b-%e %H:%M:%S',
+                                pointFormatter: function() {
+                                    return parseInt(this.y / 1024 / 1024) + 'Mb';
+                                }
+                            }
+                        }
+                    },
+                    xAxis: {
+                        type: 'datetime'
+                    },
+                    yAxis: {
+                        title: {
+                            text: '内存'
+                        },
+                        labels: {
+                            formatter: function() {
+                                return parseInt(this.value / 1024 / 1024) + 'Mb';
+                            }
+                        }
+                    },
+                    series: series
+                });
+            }
+
+            $('#toolbar').on('click', '[action]', function() {
+                var action = $(this).attr('action');
+                
+                switch(action) {
+                    case 'switchTimeDisplay':
+                        options.displayTime = !options.displayTime;
+                        draw();
+                    break;
+
+                    default:
+
+                }
+
+            });
+
+            draw();
+
+        </script>
+    </body>
+</html>

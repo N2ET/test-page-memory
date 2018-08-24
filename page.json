@@ -1,0 +1,23 @@
+{
+	"site": "https://www.baidu.com",
+	"interval": 20,
+	"page": [{
+		"name": "",
+		"selector": "#setf"
+	}, {
+		"name": "",
+		"selector": ""
+	}, {
+		"name": "",
+		"selector": ""
+	}, {
+		"name": "",
+		"selector": ""
+	}, {
+		"name": "",
+		"selector": ""
+	}, {
+		"name": "",
+		"selector": ""
+	}]
+}
