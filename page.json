@@ -1,12 +1,16 @@
 {
 	"site": "https://www.baidu.com",
-	"interval": 20,
+	"empty": "https:/www.baidu.com?empty",
+	"interval": 5,
+	"start_interval": 2,
+	"end_interval": 2,
+	"times": 2,
 	"page": [{
 		"name": "",
 		"selector": "#setf"
 	}, {
 		"name": "",
-		"selector": ""
+		"selector": ".cp-feedback"
 	}, {
 		"name": "",
 		"selector": ""
