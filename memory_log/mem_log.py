@@ -52,7 +52,7 @@ def save_data():
         print('json file exist, merge')
 
     json_target = open(json_file, 'w')
-    js_target = open(js_file, 'w');
+    js_target = open(js_file, 'w')
     json_data = json.dumps(data, indent=4)
     json_target.write(json_data)
     js_target.write('var jsonData = ' + json_data)
