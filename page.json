@@ -1,25 +1,44 @@
 {
-	"site": "https://www.baidu.com",
-	"empty": "https:/www.baidu.com?empty",
-	"interval": 5,
-	"start_interval": 2,
-	"end_interval": 2,
-	"times": 2,
-	"page": [{
+	"site": "http://localhost:8080/_app_acmp",
+	"empty": "http://localhost:8080/_app_acmp#/mod-empty/index",
+	"interval": 30,
+	"start_interval": 20,
+	"end_interval": 30,
+	"times": 5,
+  	"page": [{
 		"name": "",
-		"selector": "#setf"
+		"selector": "[utid=resource-pool]"
 	}, {
 		"name": "",
-		"selector": ".cp-feedback"
+		"selector": "[utid=cloud-host]"
+	}],
+	"_page": [{
+		"name": "",
+		"selector": "[utid=resource-pool]"
 	}, {
 		"name": "",
-		"selector": ""
+		"selector": "[utid=cloud-host]"
 	}, {
 		"name": "",
-		"selector": ""
+		"selector": "[utid=topo]"
 	}, {
 		"name": "",
-		"selector": ""
+		"selector": "[public-image]"
+	}, {
+		"name": "",
+		"selector": "[org-manage]"
+	}, {
+		"name": "",
+		"selector": "[todo-workflow]"
+	}, {
+		"name": "",
+		"selector": "[bill-overview]"
+	}, {
+		"name": "",
+		"selector": "[monitor]"
+	}, {
+		"name": "",
+		"selector": "[manage-auth]"
 	}, {
 		"name": "",
 		"selector": ""

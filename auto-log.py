@@ -1,6 +1,8 @@
 import threading
 import json
 import psutil
+import time
+import re
 from selenium import webdriver
 from memory_log import mem_log
 
@@ -19,7 +21,10 @@ def init_config():
     global config
     dr = webdriver.Chrome()
     dr.get(config['site'])
+    time.sleep(20)
+    print('start collect target url')
     pages = []
+    reg = re.compile('\s*')
     for page in config['page']:
         selector = page.get('selector')
         if not selector:
@@ -27,7 +32,8 @@ def init_config():
         dom = dr.find_element_by_css_selector(selector)
         page['href'] = dom.get_attribute('href')
         if not page.get('name'):
-            page['name'] = dom.text
+            name = dom.get_attribute('innerText')
+            page['name'] = reg.sub('', name)
         pages.append(page)
     config['page'] = pages
     dr.quit()
@@ -55,7 +61,11 @@ def init_browser():
         dr = webdriver.Chrome()
         dr.get(config['empty'])
         page['is_empty'] = True
-        p = psutil.Process(dr.service.process.pid).children()[0]
+        process = psutil.Process(dr.service.process.pid)
+
+        p = process.children()[0]
+        handles = dr.window_handles
+
         page['pid'] = p.pid
         page['create_time'] = p.create_time()
         page['driver'] = dr
@@ -77,6 +87,7 @@ def test_single_page():
 def on_task_end():
     mem_log.stop()
     mem_log.save_data()
+    input('input anything to terminal:')
 
 def do_task():
     global config
