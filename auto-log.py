@@ -23,12 +23,12 @@ def do_auth(driver):
     auth = config.get('auth')
     if auth.get('url') and auth.get('script') and os.path.exists(auth['script']):
         driver.get(config['auth']['url'])
-        time.sleep(auth.get("waiting_time"), 3)
+        time.sleep(auth.get("waiting_time", 3))
         file = open(auth['script'], 'r')
         print('[log] execute login script %s' % auth['script'])
         driver.execute_script(file.read(), auth)
         file.close()
-        time.sleep(auth.get("waiting_time"), 3)
+        time.sleep(auth.get("waiting_time", 3))
 
 def init_config():
     global config
@@ -82,6 +82,7 @@ def init_browser():
         else:
             url = page['href']
         dr.get(url)
+        dr.refresh()
 
         process = psutil.Process(dr.service.process.pid)
         p = process.children()[0]
