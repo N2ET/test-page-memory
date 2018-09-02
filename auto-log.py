@@ -21,7 +21,7 @@ def load_config():
 
 def do_auth(driver):
     auth = config.get('auth')
-    if auth.get('url') and auth.get('script') and os.path.exists(auth['script']):
+    if auth and auth.get('url') and auth.get('script') and os.path.exists(auth['script']):
         driver.get(config['auth']['url'])
         time.sleep(auth.get("waiting_time", 3))
         file = open(auth['script'], 'r')
@@ -83,6 +83,10 @@ def init_browser():
             url = page['href']
         dr.get(url)
         dr.refresh()
+
+        import pid_finder
+        pid_finder.get_tag_pid_by_web_driver(name, dr)
+        return
 
         process = psutil.Process(dr.service.process.pid)
         p = process.children()[0]

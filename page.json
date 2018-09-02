@@ -1,5 +1,5 @@
 {
-	"auth": {
+	"_auth": {
 		"url": "https://www.baidu.com",
 		"username": "testname",
 		"password": "testpwd",
