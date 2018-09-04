@@ -1,9 +1,9 @@
 {
-	"auth": {
+	"_auth": {
 		"url": "https://www.baidu.com",
 		"username": "testname",
 		"password": "testpwd",
-		"script": "./login_script.js",
+		"script": "./scripts/login_script.js",
 		"waiting_time": 3
 	},
 	"site": "https://www.baidu.com",

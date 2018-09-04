@@ -7,6 +7,7 @@ import os
 
 from selenium import webdriver
 from memory_log import mem_log
+import chrome_tab_pid_finder
 
 config_path = './page.json'
 log_memory_config_file = './target.json'
@@ -21,7 +22,7 @@ def load_config():
 
 def do_auth(driver):
     auth = config.get('auth')
-    if auth.get('url') and auth.get('script') and os.path.exists(auth['script']):
+    if auth and auth.get('url') and auth.get('script') and os.path.exists(auth['script']):
         driver.get(config['auth']['url'])
         time.sleep(auth.get("waiting_time", 3))
         file = open(auth['script'], 'r')
@@ -75,21 +76,27 @@ def init_browser():
         if not name:
             break
         dr = webdriver.Chrome()
-        do_auth(dr)
         is_empty = config.get('start_with_empty', True)
         if is_empty:
             url = config['empty']
         else:
             url = page['href']
+
+        pid = chrome_tab_pid_finder.get_pid({
+            'name': page['name'],
+            'site': url
+        }, dr)
+
+        do_auth(dr)
         dr.get(url)
         dr.refresh()
+        p = psutil.Process(pid)
 
-        process = psutil.Process(dr.service.process.pid)
-        p = process.children()[0]
-        pid = input('[%s] pid: ' % name)
-        page['pid'] = int(pid)
+        page['pid'] = pid
         page['create_time'] = p.create_time()
         page['driver'] = dr
+
+
 
 def test_single_page():
     global config
