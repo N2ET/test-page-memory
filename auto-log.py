@@ -4,20 +4,23 @@ import psutil
 import time
 import re
 import os
+import yaml
 
 from selenium import webdriver
 from memory_log import mem_log
 import chrome_tab_pid_finder
 
-config_path = './page.json'
+# config_path = './page.json'
+config_path = './setting.yml'
 log_memory_config_file = './target.json'
 
 config = {}
 
 def load_config():
-    file = open(config_path, 'r')
+    file = open(config_path, 'r', encoding='utf-8')
     global config
-    config = json.load(file)
+    # config = json.load(file)
+    config = yaml.load(file)
     file.close()
 
 def do_auth(driver):

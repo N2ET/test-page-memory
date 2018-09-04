@@ -1,0 +1,40 @@
+# 登录相关的数据
+_auth:
+  url: 'https://www.baidu.com' # 登录页面url
+  username: 'testname'
+  password: 'testpwd'
+  script: './scripts/login_script.js' # 登录js脚本
+  waiting_time: 3 # 打开登录页面后，等待登录页面加载完的时间
+
+# 登录后的页面地址，从该页面收集所有页面的url
+site: 'https://www.baidu.com'
+
+# 空页面的地址，在测试过程中不能切换域名
+empty: 'https://www.baidu.com#/mod-empty/index'
+
+# 收集页面url前，等待的时间
+collect_url_load_waiting_time: 10
+
+# 切换页面与空页面的等待时间
+interval: 5
+
+# 多少秒后开始记录内存使用数据
+log_start_interval: 3
+
+# 多少秒后开始测试（切换页面）
+start_interval: 5
+
+# 测试（切换页面）结束后静默的时间
+end_interval: 5
+
+# 切换页面的次数
+times: 2
+
+# 初始状态是否导航到空页面
+start_with_empty: True
+
+# 测试的页面
+page:
+  -
+    name: '' # 页面名称，未配置将通过selector获取
+    selector: '#setf' # css选择器，用于获取页面url，以及名称
