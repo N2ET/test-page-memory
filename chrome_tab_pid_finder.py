@@ -11,7 +11,7 @@ def get_pid_script(script_path):
     if pid_script:
         return pid_script
 
-    file = open(script_path, 'r')
+    file = open(script_path, 'r', encoding='utf-8')
     pid_script = file.read()
     file.close()
     return pid_script
@@ -63,6 +63,6 @@ def get_pid(config, driver):
             support_auto_get_pid = False
         else:
             return pid
-    pid = input('[%s] pid: ' % config['name'])
-    return pid
+    pid = input('[%s] input pid: ' % config['name'])
+    return int(pid)
 

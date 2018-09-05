@@ -9,7 +9,7 @@ def get_file_path(file_path):
     return os.path.normpath(os.path.join(base_path, file_path))
 
 config = {
-    'config_file': get_file_path('./res/target.json'),
+    'config_file': get_file_path('./setting.json'),
     'json_file': get_file_path('./res/data.json'),
     'js_file': get_file_path('./res/data.js'),
     'interval': 1,
@@ -20,7 +20,10 @@ config = {
 timer = 0
 
 
-def init_config(cfg={}):
+def init_config(cfg):
+    if not cfg:
+        cfg = {}
+
     if cfg.get('target'):
         config['target'] = cfg['target']
     elif cfg.get('config_file'):

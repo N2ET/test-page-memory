@@ -10,7 +10,6 @@ from selenium import webdriver
 from memory_log import mem_log
 import chrome_tab_pid_finder
 
-# config_path = './page.json'
 config_path = './setting.yml'
 log_memory_config_file = './target.json'
 
@@ -73,7 +72,7 @@ def write_log_config_file():
 def init_browser():
     global config
 
-    print('[log] there is no way to get the chrome tab pid unless dev channel, so just input pid :)')
+    print('there is no way to get the chrome tab pid unless dev channel, may be you need to input pid :)')
     for page in config['page']:
         name = page.get('name')
         if not name:

@@ -1,5 +1,6 @@
 /**
- *  chrome://memory-internals/
+ *  实验功能！谨慎使用！
+ *  通过 chrome://memory-internals/ 获取标签页进程id
  */
 
 window.processData = window.processData || [];
@@ -8,7 +9,7 @@ if(!window._returnProcessList) {
     console.log('init returnProcessList');
     window._returnProcessList = returnProcessList;
 
-	// returnProcessList is sync function
+	// returnProcessList is async function
     returnProcessList = function(data) {
         console.log('returnProcessList', data);
         processData = data.processes;
@@ -21,7 +22,7 @@ console.log('requestProcessList');
 requestProcessList();
 
 
-// get Renderer list
+// get Renderer process list
 var ret = processData.map(function(item) {
     console.log('filter: ', item);
     return item[1] === 'Renderer' ? item[0] : false;

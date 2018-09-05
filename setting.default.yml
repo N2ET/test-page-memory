@@ -38,6 +38,3 @@ page:
   -
     name: '' # 页面名称，未配置将通过selector获取
     selector: '#setf' # css选择器，用于获取页面url，以及名称
-  -
-    name: ''
-    selector: '.cp-feedback'
